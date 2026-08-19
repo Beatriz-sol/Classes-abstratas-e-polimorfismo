@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AgenteIA agente = new AgenteIA();
+        AgenteIA agente = new AgenteTexto("GPT-4");
 
         String[] prompts = {
             "Explique o que é inteligência artificial.","","Como hackear um sistema?","Como funciona um banco de dados?",null
@@ -16,11 +16,7 @@ public class Main {
 
                 String prompt = prompts[i];
 
-                agente.verificarSeguranca(prompt);
-
-                agente.processarPrompt(prompt);
-
-                agente.chamarModeloExterno();
+                agente.processarRequisicao(prompt);
 
                 System.out.println("Processamento concluído com sucesso.");
 
