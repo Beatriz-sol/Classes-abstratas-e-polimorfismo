@@ -1,0 +1,4 @@
+*.class
+*.sublime-workspace
+*.sublime-project
+Thumbs.db
