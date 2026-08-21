@@ -11,13 +11,14 @@ public abstract class AgenteIA {
     public String getNome() {
         return nome;
     }
+    public void setNome(String nome) {
+    this.nome = nome;
+    }
 
     public void conectarServidor()
             throws ErroComunicacaoIAException {
 
-        System.out.println(
-            "Conectando ao servidor para o agente " + nome
-        );
+        System.out.println("Conectando ao servidor para o agente " + nome);
     }
 
     public abstract void processarRequisicao(String input)
