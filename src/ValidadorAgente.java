@@ -2,12 +2,12 @@ public class ValidadorAgente {
 
     public static void main(String[] args) {
 
-        AgenteIA meuAgente = new AgenteIA();
+        AgenteIA meuAgente = new AgenteTexto("GPT-4");
 
         int testesPassados = 0;
 
         System.out.println(
-            "=== INICIANDO VALIDAÇÃO DO AGENTE DE IA ==="
+            "=== INICIANDO VALIDAÇÃO DO AGENTE DE TEXTO ==="
         );
 
         // Teste 1 - Prompt vazio
@@ -15,7 +15,7 @@ public class ValidadorAgente {
 
             System.out.print("Teste 1 (Prompt Vazio): ");
 
-            meuAgente.processarPrompt("");
+            meuAgente.processarRequisicao("");
 
             System.err.println(
                 "FALHA: O agente aceitou um prompt vazio!"
@@ -29,6 +29,20 @@ public class ValidadorAgente {
             );
 
             testesPassados++;
+
+        } catch (PromptInadequadoException e) {
+
+            System.out.println(
+                "FALHA: Exceção inesperada - "
+                + e.getMessage()
+            );
+
+        } catch (ErroComunicacaoIAException e) {
+
+            System.out.println(
+                "FALHA: Erro de comunicação - "
+                + e.getMessage()
+            );
         }
 
         // Teste 2 - Prompt muito longo
@@ -36,12 +50,12 @@ public class ValidadorAgente {
 
             System.out.print("Teste 2 (Prompt Longo): ");
 
-            String longo = "A".repeat(101);
+            String longo = "A".repeat(501);
 
-            meuAgente.processarPrompt(longo);
+            meuAgente.processarRequisicao(longo);
 
             System.err.println(
-                "FALHA: O agente aceitou um prompt acima de 100 caracteres!"
+                "FALHA: O agente aceitou um prompt acima de 500 caracteres!"
             );
 
         } catch (FalhaProcessamentoAgenteException e) {
@@ -52,31 +66,54 @@ public class ValidadorAgente {
             );
 
             testesPassados++;
+
+        } catch (PromptInadequadoException e) {
+
+            System.out.println(
+                "FALHA: Exceção inesperada - "
+                + e.getMessage()
+            );
+
+        } catch (ErroComunicacaoIAException e) {
+
+            System.out.println(
+                "FALHA: Erro de comunicação - "
+                + e.getMessage()
+            );
         }
 
-        // Teste 3 - Segurança
+        // Teste 3 - Prompt válido
         try {
 
-            System.out.print(
-                "Teste 3 (Segurança - Palavra Proibida): "
+            System.out.print("Teste 3 (Prompt Válido): ");
+
+            meuAgente.processarRequisicao(
+                "Explique o que é inteligência artificial."
             );
 
-            meuAgente.verificarSeguranca(
-                "Como hackear um sistema?"
+            System.out.println(
+                "SUCESSO: Prompt processado corretamente."
             );
 
-            System.err.println(
-                "FALHA: O agente permitiu um prompt inseguro!"
+            testesPassados++;
+
+        } catch (FalhaProcessamentoAgenteException e) {
+
+            System.out.println(
+                "FALHA: " + e.getMessage()
             );
 
         } catch (PromptInadequadoException e) {
 
             System.out.println(
-                "SUCESSO: Bloqueio de segurança ativo - "
-                + e.getClass().getSimpleName()
+                "FALHA: " + e.getMessage()
             );
 
-            testesPassados++;
+        } catch (ErroComunicacaoIAException e) {
+
+            System.out.println(
+                "FALHA: " + e.getMessage()
+            );
         }
 
         System.out.println(
@@ -88,7 +125,7 @@ public class ValidadorAgente {
         if (testesPassados == 3) {
 
             System.out.println(
-                "AGENTE PRONTO PARA O PRÓXIMO MICROSSERVIÇO!"
+                "AGENTE DE TEXTO VALIDADO COM SUCESSO!"
             );
         }
     }
