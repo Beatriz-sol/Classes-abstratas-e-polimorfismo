@@ -11,11 +11,11 @@ public class AgenteChat extends AgenteIA {
                    ErroComunicacaoIAException {
 
         conectarServidor();
+        
+        ModuloConexao.validarLink();
 
         if (input == null || input.length() == 0) {
-            throw new FalhaProcessamentoAgenteException(
-                "O prompt não pode estar vazio."
-            );
+            throw new FalhaProcessamentoAgenteException("O prompt não pode estar vazio.");
         }
 
         String promptMinusculo = input.toLowerCase();
@@ -24,14 +24,9 @@ public class AgenteChat extends AgenteIA {
                 || promptMinusculo.contains("cpf")
                 || promptMinusculo.contains("cartão")) {
 
-            throw new PromptInadequadoException(
-                "Prompt bloqueado pelo Safety Guard do agente de chat."
-            );
+            throw new PromptInadequadoException("Prompt bloqueado pelo Safety Guard do agente de chat.");
         }
 
-        System.out.println(
-            "Agente de Chat " + getNome() +
-            " respondendo para: " + input
-        );
+        System.out.println("Agente de Chat " + getNome() +" respondendo para: " + input);
     }
 }
