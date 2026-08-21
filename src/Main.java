@@ -22,18 +22,11 @@ public class Main {
 
             } catch (PromptInadequadoException e) {
 
-                System.out.println(
-                    "[LOG-AGENTE] [" + e.getTimestamp() +
-                    "] Erro: " + e.getMessage()
-                );
+                System.out.println("[LOG-AGENTE] [" + e.getTimestamp() +"] Erro: " + e.getMessage());
 
             } catch (FalhaProcessamentoAgenteException e) {
 
-                System.out.println(
-                    "[LOG-AGENTE] [" + e.getTimestamp() +
-                    "] Erro: " + e.getMessage()
-                );
-
+                System.out.println("[LOG-AGENTE] [" + e.getTimestamp() +"] Erro: " + e.getMessage() );
             } catch (ErroComunicacaoIAException e) {
 
                 System.out.println(
@@ -43,10 +36,10 @@ public class Main {
 
             } finally {
 
-                System.out.println(
-                    "[LOG-AGENTE] Finalizando processamento do teste."
-                );
+                System.out.println("[LOG-AGENTE] Finalizando processamento do teste.");
             }
+
         }
     }
+    
 }

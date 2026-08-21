@@ -23,7 +23,6 @@ public class AgenteImagem extends AgenteIA {
             throw new PromptInadequadoException("Prompt bloqueado pelo Safety Guard.");
         }
 
-        System.out.println(
-            "Agente de Imagem " + getNome() +" sintetizando pixels para: " + input);
+        System.out.println("Agente de Imagem " + getNome() +" sintetizando pixels para: " + input);
     }
 }

@@ -13,20 +13,13 @@ public class AgenteTexto extends AgenteIA {
         conectarServidor();
 
         if (input == null || input.length() == 0) {
-            throw new FalhaProcessamentoAgenteException(
-                "O prompt não pode estar vazio."
-            );
+            throw new FalhaProcessamentoAgenteException("O prompt não pode estar vazio.");
         }
 
         if (input.length() > 500) {
-            throw new FalhaProcessamentoAgenteException(
-                "Estouro de contexto: o prompt ultrapassa 500 caracteres."
-            );
+            throw new FalhaProcessamentoAgenteException("Estouro de contexto: o prompt ultrapassa 500 caracteres.");
         }
 
-        System.out.println(
-            "Agente de Texto " + getNome() +
-            " gerando resposta para: " + input
-        );
+        System.out.println("Agente de Texto " + getNome() +" gerando resposta para: " + input);
     }
 }
