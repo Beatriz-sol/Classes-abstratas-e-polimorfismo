@@ -12,6 +12,8 @@ public class AgenteImagem extends AgenteIA {
 
         conectarServidor();
 
+        ModuloConexao.validarLink();
+
         if (input == null || input.length() == 0) {
             throw new FalhaProcessamentoAgenteException("O prompt não pode estar vazio.");
         }
