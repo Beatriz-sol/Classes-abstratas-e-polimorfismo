@@ -5,5 +5,16 @@ public class PluginPesquisaWeb implements IAcaoAgente {
             throws PromptInadequadoException,
                    FalhaProcessamentoAgenteException {
 
-        if (comando.equalsIgnoreCase("hackear")
-   
+        if (comando.toLowerCase().contains("hackear")
+                || comando.toLowerCase().contains("roubar")) {
+
+            throw new PromptInadequadoException(
+                "Comando bloqueado pelo plugin de pesquisa."
+            );
+        }
+
+        System.out.println(
+            "Resultado da pesquisa no Google sobre: " + comando
+        );
+    }
+}
