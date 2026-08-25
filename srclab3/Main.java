@@ -2,15 +2,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AgenteIA agente = new AgenteTexto("GPT-4");
+        AgenteIA agente = new AgenteChat("GPT-4");
 
-        String[] prompts = {
-            "Explique o que é inteligência artificial.","","Como hackear um sistema?","Como funciona um banco de dados?",null
-             };
+        IAcaoAgente pesquisa = new PluginPesquisaWeb();
 
-        for (int i = 0; i < prompts.length; i++) {
+        IAcaoAgente geradorCodigo = new PluginGeradorCodigo();
 
-            System.out.println("\n=== TESTE " + (i + 1) + " ===");
 
             try {
 
