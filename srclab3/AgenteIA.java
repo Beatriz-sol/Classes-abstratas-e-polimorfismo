@@ -26,4 +26,6 @@ public abstract class AgenteIA {
             throws FalhaProcessamentoAgenteException,
                    PromptInadequadoException,
                    ErroComunicacaoIAException;
+
+    public void usarHabilidade (IAcaoAgente ferramenta,String comando)
 }
