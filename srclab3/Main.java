@@ -8,6 +8,10 @@ public class Main {
 
         IAcaoAgente geradorCodigo = new PluginGeradorCodigo();
 
+        String comando = "Como aprender Java";
+
+        System.out.println("Pesquisa web");
+
 
             try {
 
