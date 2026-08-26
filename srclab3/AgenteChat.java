@@ -20,10 +20,7 @@ public class AgenteChat extends AgenteIA {
 
         String promptMinusculo = input.toLowerCase();
 
-        if (promptMinusculo.contains("senha")
-                || promptMinusculo.contains("cpf")
-                || promptMinusculo.contains("cartão")) {
-
+        if (promptMinusculo.contains("senha")|| promptMinusculo.contains("cpf")|| promptMinusculo.contains("cartão")|| promptMinusculo.contains("hackear")|| promptMinusculo.contains("roubar")) {
             throw new PromptInadequadoException("Prompt bloqueado pelo Safety Guard do agente de chat.");
         }
 

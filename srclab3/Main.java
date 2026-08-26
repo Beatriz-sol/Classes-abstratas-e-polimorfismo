@@ -10,37 +10,70 @@ public class Main {
 
         String comando = "Como aprender Java";
 
-        System.out.println("Pesquisa web");
+        System.out.println("=== PESQUISA WEB ===");
 
+        try {
 
-            try {
+            agente.usarHabilidade(
+                pesquisa,
+                comando
+            );
 
-                String prompt = prompts[i];
+        } catch (PromptInadequadoException e) {
 
-                agente.processarRequisicao(prompt);
+            System.out.println(
+                "Erro de segurança: " + e.getMessage()
+            );
 
-                System.out.println("Processamento concluído com sucesso.");
+        } catch (FalhaProcessamentoAgenteException e) {
 
-            } catch (PromptInadequadoException e) {
+            System.out.println(
+                "Erro de processamento: " + e.getMessage()
+            );
+        }
 
-                System.out.println("[LOG-AGENTE] [" + e.getTimestamp() +"] Erro: " + e.getMessage());
+        System.out.println("\n=== GERADOR DE CÓDIGO ===");
 
-            } catch (FalhaProcessamentoAgenteException e) {
+        try {
 
-                System.out.println("[LOG-AGENTE] [" + e.getTimestamp() +"] Erro: " + e.getMessage() );
-            } catch (ErroComunicacaoIAException e) {
+            agente.usarHabilidade(
+                geradorCodigo,
+                comando
+            );
 
-                System.out.println(
-                    "[LOG-AGENTE] [" + e.getTimestamp() +
-                    "] Erro: " + e.getMessage()
-                );
+        } catch (PromptInadequadoException e) {
 
-            } finally {
+            System.out.println(
+                "Erro de segurança: " + e.getMessage()
+            );
 
-                System.out.println("[LOG-AGENTE] Finalizando processamento do teste.");
-            }
+        } catch (FalhaProcessamentoAgenteException e) {
 
+            System.out.println(
+                "Erro de processamento: " + e.getMessage()
+            );
+        }
+
+        System.out.println("\n=== TESTE DE SEGURANÇA ===");
+
+        try {
+
+            agente.usarHabilidade(
+                pesquisa,
+                "hackear"
+            );
+
+        } catch (PromptInadequadoException e) {
+
+            System.out.println(
+                "Erro de segurança: " + e.getMessage()
+            );
+
+        } catch (FalhaProcessamentoAgenteException e) {
+
+            System.out.println(
+                "Erro de processamento: " + e.getMessage()
+            );
         }
     }
-    
 }
