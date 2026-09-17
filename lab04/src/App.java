@@ -30,6 +30,7 @@ public class App {
             System.out.println("5 - Inserir reserva");
             System.out.println("6 - Listar reservas");
             System.out.println("7 - Alterar reserva");
+            System.out.println("8 - Remover reserva");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -63,6 +64,10 @@ public class App {
 
                 case 7:
                     alterarReserva(con, scanner);
+                    break;
+
+                case 8:
+                    removerReserva(con, scanner);
                     break;
 
                 case 0:
@@ -250,6 +255,28 @@ public class App {
 
         if (qte >= 1) {
             System.out.println("Reserva alterada com sucesso!");
+        } else {
+            System.out.println("Reserva não encontrada.");
+        }
+
+        pstmt.close();
+    }
+
+    static void removerReserva(Connection con, Scanner scanner) throws Exception {
+
+        System.out.print("Digite o ID da reserva: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        String sql = "DELETE FROM reserva WHERE id = ?";
+
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, id);
+
+        int qte = pstmt.executeUpdate();
+
+        if (qte >= 1) {
+            System.out.println("Reserva removida com sucesso!");
         } else {
             System.out.println("Reserva não encontrada.");
         }
