@@ -210,7 +210,9 @@ public class App {
 
     static void listarReservas(Connection con) throws Exception {
 
-        String sql = "SELECT * FROM reserva";
+        String sql = "SELECT reserva.id, hospede.nome, reserva.data_checkin " +
+                     "FROM reserva " +
+                     "INNER JOIN hospede ON reserva.hospede_id = hospede.id";
 
         PreparedStatement pstmt = con.prepareStatement(sql);
 
@@ -223,7 +225,7 @@ public class App {
 
             System.out.println(
                 rs.getInt("id") + " - " +
-                "Hóspede: " + rs.getInt("hospede_id") + " - " +
+                "Hóspede: " + rs.getString("nome") + " - " +
                 "Check-in: " + rs.getDate("data_checkin")
             );
         }
