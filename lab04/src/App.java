@@ -12,7 +12,7 @@ public class App {
 
         String url = "jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:5432/postgres";
         String username = "postgres.tzdiskpmctmaxozfoldj";
-        String password = "@VidaGi0309";
+        String password = System.getenv("SUPABASE_PASSWORD");
 
         Connection con = DriverManager.getConnection(url, username, password);
 
