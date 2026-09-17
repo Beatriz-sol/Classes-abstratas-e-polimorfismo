@@ -29,6 +29,7 @@ public class App {
             System.out.println("4 - Remover hóspede");
             System.out.println("5 - Inserir reserva");
             System.out.println("6 - Listar reservas");
+            System.out.println("7 - Alterar reserva");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -58,6 +59,10 @@ public class App {
 
                 case 6:
                     listarReservas(con);
+                    break;
+
+                case 7:
+                    alterarReserva(con, scanner);
                     break;
 
                 case 0:
@@ -219,6 +224,36 @@ public class App {
         }
 
         rs.close();
+        pstmt.close();
+    }
+
+    static void alterarReserva(Connection con, Scanner scanner) throws Exception {
+
+        System.out.print("Digite o ID da reserva: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Novo ID do hóspede: ");
+        int hospedeId = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Nova data de check-in (AAAA-MM-DD): ");
+        String data = scanner.nextLine();
+
+        String sql = "UPDATE reserva SET hospede_id = ?, data_checkin = ? WHERE id = ?";
+
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, hospedeId);
+        pstmt.setDate(2, java.sql.Date.valueOf(data));
+        pstmt.setInt(3, id);
+
+        int qte = pstmt.executeUpdate();
+
+        if (qte >= 1) {
+            System.out.println("Reserva alterada com sucesso!");
+        } else {
+            System.out.println("Reserva não encontrada.");
+        }
+
         pstmt.close();
     }
 }
