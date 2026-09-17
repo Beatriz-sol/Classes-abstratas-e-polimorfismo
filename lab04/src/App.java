@@ -28,6 +28,7 @@ public class App {
             System.out.println("3 - Alterar hóspede");
             System.out.println("4 - Remover hóspede");
             System.out.println("5 - Inserir reserva");
+            System.out.println("6 - Listar reservas");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -53,6 +54,10 @@ public class App {
 
                 case 5:
                     inserirReserva(con, scanner);
+                    break;
+
+                case 6:
+                    listarReservas(con);
                     break;
 
                 case 0:
@@ -190,6 +195,30 @@ public class App {
             System.out.println("Reserva inserida com sucesso!");
         }
 
+        pstmt.close();
+    }
+
+    static void listarReservas(Connection con) throws Exception {
+
+        String sql = "SELECT * FROM reserva";
+
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        ResultSet rs = pstmt.executeQuery();
+
+        System.out.println();
+        System.out.println("===== RESERVAS =====");
+
+        while (rs.next()) {
+
+            System.out.println(
+                rs.getInt("id") + " - " +
+                "Hóspede: " + rs.getInt("hospede_id") + " - " +
+                "Check-in: " + rs.getDate("data_checkin")
+            );
+        }
+
+        rs.close();
         pstmt.close();
     }
 }
