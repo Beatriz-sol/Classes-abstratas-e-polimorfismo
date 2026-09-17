@@ -18,9 +18,47 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        inserirHospede(con, scanner);
+        int opcao;
 
-        listarHospedes(con);
+        do {
+            System.out.println();
+            System.out.println("===== SISTEMA DE RESERVAS DE HOTEL =====");
+            System.out.println("1 - Inserir hóspede");
+            System.out.println("2 - Listar hóspedes");
+            System.out.println("3 - Alterar hóspede");
+            System.out.println("4 - Remover hóspede");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = Integer.parseInt(scanner.nextLine());
+
+            switch (opcao) {
+
+                case 1:
+                    inserirHospede(con, scanner);
+                    break;
+
+                case 2:
+                    listarHospedes(con);
+                    break;
+
+                case 3:
+                    alterarHospede(con, scanner);
+                    break;
+
+                case 4:
+                    removerHospede(con, scanner);
+                    break;
+
+                case 0:
+                    System.out.println("Sistema encerrado.");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida.");
+            }
+
+        } while (opcao != 0);
 
         scanner.close();
         con.close();
@@ -76,31 +114,53 @@ public class App {
 
     static void alterarHospede(Connection con, Scanner scanner) throws Exception {
 
-    System.out.print("Digite o ID do hóspede: ");
-    int id = Integer.parseInt(scanner.nextLine());
+        System.out.print("Digite o ID do hóspede: ");
+        int id = Integer.parseInt(scanner.nextLine());
 
-    System.out.print("Novo nome: ");
-    String nome = scanner.nextLine();
+        System.out.print("Novo nome: ");
+        String nome = scanner.nextLine();
 
-    System.out.print("Novo telefone: ");
-    String telefone = scanner.nextLine();
+        System.out.print("Novo telefone: ");
+        String telefone = scanner.nextLine();
 
-    String sql = "UPDATE hospede SET nome = ?, telefone = ? WHERE id = ?";
+        String sql = "UPDATE hospede SET nome = ?, telefone = ? WHERE id = ?";
 
-    PreparedStatement pstmt = con.prepareStatement(sql);
+        PreparedStatement pstmt = con.prepareStatement(sql);
 
-    pstmt.setString(1, nome);
-    pstmt.setString(2, telefone);
-    pstmt.setInt(3, id);
+        pstmt.setString(1, nome);
+        pstmt.setString(2, telefone);
+        pstmt.setInt(3, id);
 
-    int qte = pstmt.executeUpdate();
+        int qte = pstmt.executeUpdate();
 
-    if (qte >= 1) {
-        System.out.println("Hóspede alterado com sucesso!");
-    } else {
-        System.out.println("Hóspede não encontrado.");
+        if (qte >= 1) {
+            System.out.println("Hóspede alterado com sucesso!");
+        } else {
+            System.out.println("Hóspede não encontrado.");
+        }
+
+        pstmt.close();
     }
 
-    pstmt.close();
-    }   
+    static void removerHospede(Connection con, Scanner scanner) throws Exception {
+
+        System.out.print("Digite o ID do hóspede: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        String sql = "DELETE FROM hospede WHERE id = ?";
+
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, id);
+
+        int qte = pstmt.executeUpdate();
+
+        if (qte >= 1) {
+            System.out.println("Hóspede removido com sucesso!");
+        } else {
+            System.out.println("Hóspede não encontrado.");
+        }
+
+        pstmt.close();
+    }
 }
