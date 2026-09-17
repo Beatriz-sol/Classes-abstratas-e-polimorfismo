@@ -27,6 +27,7 @@ public class App {
             System.out.println("2 - Listar hóspedes");
             System.out.println("3 - Alterar hóspede");
             System.out.println("4 - Remover hóspede");
+            System.out.println("5 - Inserir reserva");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -48,6 +49,10 @@ public class App {
 
                 case 4:
                     removerHospede(con, scanner);
+                    break;
+
+                case 5:
+                    inserirReserva(con, scanner);
                     break;
 
                 case 0:
@@ -159,6 +164,30 @@ public class App {
             System.out.println("Hóspede removido com sucesso!");
         } else {
             System.out.println("Hóspede não encontrado.");
+        }
+
+        pstmt.close();
+    }
+
+    static void inserirReserva(Connection con, Scanner scanner) throws Exception {
+
+        System.out.print("ID do hóspede: ");
+        int hospedeId = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Data de check-in (AAAA-MM-DD): ");
+        String data = scanner.nextLine();
+
+        String sql = "INSERT INTO reserva (hospede_id, data_checkin) VALUES (?, ?)";
+
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, hospedeId);
+        pstmt.setDate(2, java.sql.Date.valueOf(data));
+
+        int qte = pstmt.executeUpdate();
+
+        if (qte >= 1) {
+            System.out.println("Reserva inserida com sucesso!");
         }
 
         pstmt.close();
